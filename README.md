@@ -1,5 +1,15 @@
 # Dijitech Linter
 
-## How to install
+# Installation and usage
 
-pip install 
+### Installation
+
+```
+pip install git+https://github.com/omert11/dijilint.git
+```
+
+### Usage
+
+```
+dijilinter [filename or dir...]
+```
