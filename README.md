@@ -1,5 +1,15 @@
 # Dijitech Linter
 
-## How to install
+# Installation and usage
 
-pip install 
+### Installation
+
+```
+pip install tryceratops
+```
+
+### Usage
+
+```
+dijilinter [filename or dir...]
+```
