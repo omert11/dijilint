@@ -1,0 +1,30 @@
+[tool.black]
+target-version = ['py38']
+line-length = 88
+
+[tool.poetry]
+name = "dijilinter"
+version = "1.0.0"
+description = "Dijitech Lint"
+authors = ["Ömer Faruk <omer@diji.tech>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+dijilinter = 'dijilinter.__main__:main'
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+click = ">=7"
+toml = ">=0.10.2"
+rich = ">=10.14.0"
+
+[tool.poetry.dev-dependencies]
+flake8 = ">=3.9.2"
+black = ">=22.0.0"
+isort = "^5.8.0"
+pre-commit = "^2.13.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
