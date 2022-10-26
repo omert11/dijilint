@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Set, Type, cast
 
-from . import call, conditional, exception_block, try_block
+from . import model
 from .base import BaseAnalyzer
 
 if TYPE_CHECKING:
@@ -10,18 +10,7 @@ if TYPE_CHECKING:
 
 
 ANALYZER_CLASSES: Set[Type[BaseAnalyzer]] = {
-    call.CallTooManyAnalyzer,
-    call.CallRaiseVanillaAnalyzer,
-    call.CallRaiseLongArgsAnalyzer,
-    call.CallAvoidCheckingToContinueAnalyzer,
-    conditional.PreferTypeErrorAnalyzer,
-    exception_block.ExceptReraiseWithoutCauseAnalyzer,
-    exception_block.ExceptVerboseReraiseAnalyzer,
-    exception_block.ExceptBroadPassAnalyzer,
-    exception_block.LogErrorAnalyzer,
-    exception_block.LogObjectAnalyzer,
-    try_block.TryConsiderElseAnalyzer,
-    try_block.TryShouldntRaiseAnalyzer,
+    model.ModelPermissionAnalyzer,
 }
 
 

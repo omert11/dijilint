@@ -3,20 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Set, Type
 
 from .base import BaseFixer
-from .exception_block import (
-    LoggerErrorFixer,
-    RaiseWithoutCauseFixer,
-    VerboseReraiseFixer,
-)
 
 if TYPE_CHECKING:
     from dijilinter.filters import GlobalSettings
 
-FIXER_CLASSES: Set[Type[BaseFixer]] = {
-    RaiseWithoutCauseFixer,
-    VerboseReraiseFixer,
-    LoggerErrorFixer,
-}
+FIXER_CLASSES: Set[Type[BaseFixer]] = {}
 
 
 def get_fixers_chain(global_settings: GlobalSettings) -> Set[BaseFixer]:
