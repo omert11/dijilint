@@ -4,7 +4,7 @@ line-length = 88
 
 [tool.poetry]
 name = "dijilinter"
-version = "1.0.4"
+version = "1.0.5"
 description = "Dijitech Lint"
 authors = ["Ömer Faruk <omer@diji.tech>"]
 readme = "README.md"
@@ -24,6 +24,9 @@ flake8 = ">=3.9.2"
 black = ">=22.0.0"
 isort = "^5.8.0"
 pre-commit = "^2.13.0"
+
+[tool.poetry.plugins."flake8.extension"]
+DJL = "dijilinter.flake_plugin:dijilintAdapterPlugin"
 
 [build-system]
 requires = ["poetry-core"]
