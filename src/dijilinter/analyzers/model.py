@@ -1,13 +1,14 @@
 import ast
 from typing import Union
 
-from dijilinter.violations import codes
+from dijilinter.violations import VerboseReraiseViolation, codes
 
 from .base import BaseAnalyzer
 
 
 class ModelPermissionAnalyzer(BaseAnalyzer):
     violation_code = codes.FORGOT_DEFAULTPERMISSION
+    violation_type = VerboseReraiseViolation
 
     def _is_sub_models_Model(self, node: Union[ast.stmt, ast.expr]) -> bool:
         return any(
