@@ -4,7 +4,7 @@ line-length = 88
 
 [tool.poetry]
 name = "dijilinter"
-version = 1.0.4
+version = 'dijilinter.__version__'
 description = "Dijitech Lint"
 authors = ["Ömer Faruk <omer@diji.tech>"]
 readme = "README.md"
