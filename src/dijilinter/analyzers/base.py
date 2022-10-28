@@ -1,9 +1,11 @@
 import ast
-from abc import ABC
-from typing import Any, List, Type
+from abc import ABC, abstractmethod
+from typing import Any, Callable, List, Protocol, Type
 
 from dijilinter.processors import Processor
 from dijilinter.violations import Violation
+
+from .exceptions import AnalyzerVisitException
 
 
 class BaseAnalyzer(ABC, Processor, ast.NodeVisitor):
@@ -25,3 +27,34 @@ class BaseAnalyzer(ABC, Processor, ast.NodeVisitor):
         self.visit(tree)
 
         return self.violations
+
+
+class StmtBodyProtocol(Protocol):
+    body: List[ast.stmt]
+
+
+def visit_error_handler(func: Callable[[BaseAnalyzer, Any], Any]):  # noqa: ANN201
+    def _func(instance: Any, node: ast.stmt) -> None:  # noqa: ANN401
+        try:
+            return func(instance, node)
+        except Exception as ex:
+            raise AnalyzerVisitException(node) from ex
+
+    return _func
+
+
+class BaseRaiseCallableAnalyzer(BaseAnalyzer, ABC):
+    @abstractmethod
+    def _check_raise_callable(
+        self, node: ast.Raise, exc: ast.Call, func: ast.Name
+    ) -> None:
+        pass
+
+    @visit_error_handler
+    def visit_Raise(self, node: ast.Raise) -> None:
+        if exc := node.exc:
+            if isinstance(exc, ast.Call):
+                if isinstance(exc.func, ast.Name):
+                    self._check_raise_callable(node, exc, exc.func)
+
+        self.generic_visit(node)

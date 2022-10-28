@@ -3,7 +3,7 @@ from typing import Union
 
 from dijilinter.violations import VerboseReraiseViolation, codes
 
-from .base import BaseAnalyzer
+from .base import BaseAnalyzer, visit_error_handler
 
 
 class ModelPermissionAnalyzer(BaseAnalyzer):
@@ -32,10 +32,12 @@ class ModelPermissionAnalyzer(BaseAnalyzer):
                 return True
         return False
 
+    @visit_error_handler
     def visit_ClassDef(self, node):
         if not self._is_sub_models_Model(node):
             return
 
         if not self._has_default_permission(node):
-            self._mark_violation(node)
+            self._mark_violation(node, exception_name=node.name)
             # f"{node.name} model does not have default_pesmission variable.",
+        self.generic_visit(node)
