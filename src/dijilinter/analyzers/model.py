@@ -1,14 +1,13 @@
 import ast
 from typing import Union
 
-from dijilinter.violations import VerboseReraiseViolation, codes
+from dijilinter.violations import codes
 
-from .base import BaseAnalyzer, visit_error_handler
+from .base import BaseAnalyzer
 
 
 class ModelPermissionAnalyzer(BaseAnalyzer):
     violation_code = codes.FORGOT_DEFAULTPERMISSION
-    violation_type = VerboseReraiseViolation
 
     def _is_sub_models_Model(self, node: Union[ast.stmt, ast.expr]) -> bool:
         return any(
@@ -32,12 +31,9 @@ class ModelPermissionAnalyzer(BaseAnalyzer):
                 return True
         return False
 
-    @visit_error_handler
     def visit_ClassDef(self, node):
         if not self._is_sub_models_Model(node):
             return
 
         if not self._has_default_permission(node):
-            self._mark_violation(node, exception_name=node.name)
-            # f"{node.name} model does not have default_pesmission variable.",
-        self.generic_visit(node)
+            self._mark_violation(node)

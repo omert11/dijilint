@@ -63,5 +63,4 @@ class dijilintAdapterPlugin:
         for violation in violations:
             msg = f"{violation.code} {violation.description}"
 
-            print(violation.line, violation.col, msg, type(self))
             yield violation.line, violation.col, msg, type(self)
