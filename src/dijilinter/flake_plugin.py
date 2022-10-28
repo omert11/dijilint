@@ -27,7 +27,6 @@ class dijilintAdapterPlugin:
         filename: str = "undefined",
         file_tokens: Iterable[TokenInfo] = [],
     ):
-        print("inited")
 
         self._tree = tree
         self._filename = filename
@@ -49,7 +48,6 @@ class dijilintAdapterPlugin:
         return GLOBAL_DUMMY_FILTER
 
     def _execute_analyzer(self) -> List[Violation]:
-        print("excuted")
         dijilint_input = [
             (
                 self._filename,
@@ -61,8 +59,9 @@ class dijilintAdapterPlugin:
 
     def run(self) -> Generator[FLAKE8_VIOLATION_TYPE, None, None]:
         violations = self._execute_analyzer()
-        print("runned", len(violations))
 
         for violation in violations:
             msg = f"{violation.code} {violation.description}"
+
+            print(violation.line, violation.col, msg, type(self))
             yield violation.line, violation.col, msg, type(self)
