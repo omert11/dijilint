@@ -12,7 +12,8 @@ class ModelPermissionAnalyzer(BaseAnalyzer):
     def _is_sub_models_Model(self, node: Union[ast.stmt, ast.expr]) -> bool:
         return any(
             isinstance(x, ast.Attribute)
-            and hasattr(ast.Attribute, "id")
+            and hasattr(x, "value")
+            and hasattr(x.value, "id")
             and x.value.id == "models"
             and x.attr == "Model"
             for x in node.bases
